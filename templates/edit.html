@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid 19 </title>
+    <link
+      href= 'https://fonts.googleapis.com/icon?family=Material+Icons'
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href='https://fonts.googleapis.com/css?family=Google+Sans'
+      as="style"
+    />
+    <link rel="stylesheet" href={% static 'css/minified/materializecss.min.css' %} />
+    <link rel="stylesheet" href={% static 'css/style.css' %} />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-extended nav-fixed transparent z-depth-1">
+        <div class="nav-wrapper">
+          <a class="brand-logo" id="logo"> Covid 19</a>
+          <a href="#" class="sidenav-trigger menu" data-target="mobile-nav">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li style="color:#1b73e8;font-size:large;">Hello {{user.username}}</li>
+            <li>
+              <a href="{% url 'home' %}" class="btn-flat" id="logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <ul class="sidenav" id="mobile-nav">
+         <li style="color:#1b73e8;font-size:large;">Hello {{user.username}}</li>
+        <li><a href="{% url 'home' %}" class="btn-flat" id="logout">Logout</a></li>
+      </ul> 
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row topMargin">
+          <div class="col s12">
+            <ul class="tabs center">
+              <li class="tab">
+               
+              </li>
+            </ul>
+          </div>
+          <div id="update_profile" class="col s12">
+        <div class="row">
+          <div class="center-align">
+            <h3 class="title">Update Results</h3>
+              <li style="color:#1b73e8;font-size:large;">Orginizations {{user.first_name}}</li>
+          </div>
+        </div>
+        <!-- UPDATE PROFILE -->
+                {%if messages%}
+                {%for message in messages%}
+                {%if message.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+                <div class="alert alert-danger" role="alert">
+                {{message}}
+                </div>
+                {%endif%}
+                {%endfor%}
+                {%endif%}
+        <div class="card rounded">
+          <div class="card-content">
+            <div class="row">
+              <form action="" method="post">
+             {% csrf_token %}
+            <div class="row">
+                  <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                      <input
+                        id="id"
+                        name="id"
+                        type="text"
+                        class="validate"
+                        required
+                        value={{appoint.appointid}}
+                      >
+                      <label for="name">ID*</label>
+                    </div>
+                  </div>
+                  <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                        <select required name="hname">
+                            <option value='{{appoint.first_name}}' selected>{{appoint.first_name}}
+                            </option>
+                        </select>
+                        <label for ="hname">Select Hospital*</label>
+                    </div>
+                  </div>
+                  </div>
+            <div class="row">
+                   <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        class="validate"
+                        required
+                        
+                        value='{{appoint.name}}'
+                      >
+                      <label for="name">Name*</label>
+                    </div>
+                  </div>
+                  <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                      <input
+                        id="age"
+                        name="age"
+                        type="text"
+                        class="validate"
+                        required
+                      
+                        value={{appoint.age}}
+                      >
+                      <label for="age">Age*</label>
+                    </div>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                      <input
+                        name='date'
+                        id="date"
+                        type="date"
+                        class="validate"
+                        required
+                        
+                        value={{appoint.date}}
+                      >
+                      <label for="date">Date*</label>
+                    </div>
+                  </div>            
+                  <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                      <input
+                        name='address'
+                        id="address"
+                        type="text"
+                        class="validate"
+                        required  
+
+                        value='{{appoint.address}}'
+                        >
+                      <label for="address">Address*</label>
+                    </div>
+                  </div>
+                </div>
+            <div class="row">       
+                  <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                      <input
+                        name='email'
+                        id="email"
+                        type="email"
+                        required
+                        
+                        value={{appoint.email}}
+                      >
+                      <label for="email">Email*</label>
+                    </div>
+                  </div>
+                   <div class="col s12 l6 m6">
+                    <div class="input-field col s12">
+                        <select required name="time">
+                            <option value={{appoint.time}} selected>{{appoint.time}}
+                            </option>
+                        </select>
+                        <label for="time">Select Time*</label>
+                    </div>
+                  </div>
+                  </div>
+               <div class= "row">
+                   <div class="col s12 l6 m6">
+                     <div class="input-field col s12">
+                        <select required name="blood_group">
+                            <option value={{appoint.blood_group}} selected>{{appoint.blood_group}}
+                            </option>
+                        </select>
+                        <label for="blood_group">Blood Group*</label>
+                      </div>
+                      </div>
+                      <div class="col s12 l6 m6">
+                      <div class="input-field col s12">
+                        <select required name="result">
+                            <option value="" disabled selected>Choose your option
+                            </option>
+                            <option value="Pendding">Pendding</option>
+                            <option value="Positive">Positive</option>
+                            <option value="Negative">Negative</option>
+                            <option value="Negativee">Negative & Donor</option>
+                        </select>
+                        <label for="result">Result*</label>
+                    </div>
+                 </div>
+                </div> 
+              </div>
+                <div class="center-align">
+                  <button
+                    type="submit"
+                    class="waves-effect btn blue darken-3 btnRounded"
+                  >
+                    Update Result
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'></script>
+    <script src={% static 'js/plugin.js' %}></script>
+  </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid 19</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Google+Sans"
+      as="style"
+    />
+    <link rel="stylesheet" href="assets/css/minified/materializecss.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav-extended nav-fixed transparent z-depth-1">
+        <div class="nav-wrapper">
+          <a href="{% url 'home' %}" id="logo">Covid 19</a>
+           <a href="#" class="sidenav-trigger menu" data-target="mobile-nav">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+              <a href="plasmadonor" class="btn-flat" id="plasma"
+                >Plasma Donor</a>
+            </li>
+          </ul>  
+        </div>
+      </nav>
+      <ul class="sidenav" id="mobile-nav">
+            <li>
+              <a href="plasmadonor" class="btn-flat" id="plasma"
+                >Plasma Donor</a>
+            </li>
+      </ul>     
+    </header>
+
+    <main>
+      {% block messages %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center"> 
+                    <a class="close" data-dismiss="alert">×</a>
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
+      {% endblock %}
+      <div class="container">
+        <div class="row">
+          <div class="card center-align rounded credentialCard">
+            <div class="card-content">
+              <div class="row">
+                <div class="col s12 l5 m5">
+                  <img
+                    src="assets/img/reg.svg"
+                    alt="registerimg"
+                    class="responsive-img"
+                  />
+                </div>
+                {%if messages%}
+                {%for message in messages%}
+                <div class="alert alert-danger" role="alert">
+                {{message}}
+                </div>
+                {%endfor%}
+                {%endif%}
+                <div class="col s12 l7 m7">
+                  <form action="appiontment" method="post">
+                    {% csrf_token %}
+                    <div class="input-field col s12">
+                        <select required name="hname">
+                            <option value="" disabled selected>Choose your option
+                            </option>
+                            {% for hospital in hospitals%}
+                            <option value="{{hospital.first_name}}">{{hospital.first_name}}</option>
+                            {%endfor%}
+                        </select>
+                        <label>Select Hospital*</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        name='name'
+                        placeholder="Name"
+                        id="name"
+                        type="text"
+                        required
+                      />
+                      <label for="name">Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input
+                          name='age'
+                          placeholder="age"
+                          id="age"
+                          type="text"
+                          required
+                        />
+                        <label for="age">Age</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <select required name="blood_group">
+                            <option value="" disabled selected>Choose your option
+                            </option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+
+                        </select>
+                        <label>Select Blood_Group*</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <input
+                        name='email'
+                        placeholder="user@gmail.com"
+                        id="email"
+                        type="email"
+                        required
+                      />
+                      <label for="email">Email</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input
+                          name='address'
+                          placeholder="address"
+                          id="adddress"
+                          type="text"
+                          required
+                        />
+                        <label for="address">Address</label>
+                      </div>
+                    <div class="input-field col s12">
+                      <input
+                        name='date'
+                        id="date"
+                        type="date"
+                        class="validate"
+                        required
+                      />
+                      <label for="date">Date</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <select required name="time">
+                            <option value="" disabled selected>Choose your option
+                            </option>
+                            <option value="9.00AM-10.00AM">9.00AM-10.00AM</option>
+                            <option value="10.00AM-11.00AM">10.00AM-11.00AM</option>
+                            <option value="11.00AM-12.00PM">11.00AM-12.00PM</option>
+                        </select>
+                        <label>Select Time*</label>
+                        </div>
+                    </div>
+                    
+                    <div class="center-align">
+                      <button
+                        type="submit"
+                        class="waves-effect btn blue darken-3 btnRounded"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="assets/js/plugin.js"></script>
+  </body>
+</html>
